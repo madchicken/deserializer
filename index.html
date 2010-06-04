@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+	<script type="text/javascript" src="prototype.js"></script>
+	<script type="text/javascript" src="deserialize.js"></script>
+	<script>
+	function doSubmitSerialize(form) {
+	    var value = Form.serialize(form, $('usejson').checked);
+	    if($('usejson').checked)
+	        $('serializedstring').value = Object.toJSON(value);
+	    else
+	        $('serializedstring').value = value;
+	}
+
+	function doSubmitDeserialize(form) {
+	    if($('usejson').checked)
+	        Form.deserializeJSON($('myform'), $('serializedstring').value);
+	    else
+	        Form.deserialize($('myform'), $('serializedstring').value);
+	}
+	</script>
+	<title>Deserializer Test Page</title>
+</head>
+<body>
+<form id="myform" action="" onsubmit="doSubmitSerialize(this); return false;">
+<p>
+	<input type="text" id="mytext" name="mytext" value="sample value &"/><br/>
+	<select id="myselect" name="myselect">
+		<option value="value one">value one</option>
+		<option value="value two">value two</option>
+		<option value="value three">value three</option>
+		<option value="value four">value four</option>
+	</select><br/>
+	<select id="myselect2" name="myselect2" multiple="true">
+		<option value="multi value one">multi value one</option>
+		<option value="multi value two">multi value two</option>
+		<option value="multi value three">multi value three</option>
+		<option value="multi value four">multi value four</option>
+	</select><br/>
+	<input type="radio" id="myradio" name="myradio" value="one"/>radio one<br/>
+	<input type="radio" id="myradio2" name="myradio2" value="two"/>radio two<br/>
+	<input type="radio" id="myradio3" name="myradio3" value="three"/>radio three<br/>
+	<input type="checkbox" id="mycheck1" name="mycheck1"/>Check box 1<br/>
+	<input type="checkbox" id="mycheck2" name="mycheck2"/>Check box 2<br/>
+	<textarea value="" name="mytextarea" id="mytextarea" rows="3" cols="50"/></textarea>
+	<div>
+	<input type="checkbox" id="usejson" name="usejson"/>Use JSON serialization<br/>
+	<input type="submit" value="serialize" id="mysubmit" name="mysubmit"/>
+	<input type="reset" value="reset" id="myreset" name="myreset"/>
+	</div>
+</p>
+</form>
+<form id="myformdeserialize" action="" onsubmit="doSubmitDeserialize(this); return false;">
+<p>
+<textarea value="" name="serializedstring" id="serializedstring" rows="3" cols="50"/></textarea>
+<input type="submit" value="deserialize" name="mydeserialize"> <input type="reset" value="clear" id="myclear" name="myclear"/>
+</p>
+</form>
+</body>
+</html>
